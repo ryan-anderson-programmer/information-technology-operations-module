@@ -1,0 +1,12 @@
+*.code-workspace
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+.vs/
+
+[Bb]in/
+[Oo]bj/
