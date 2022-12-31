@@ -102,3 +102,7 @@ Pester can be used to test this module to obtain information about code coverage
 ```powershell
 Invoke-Pester '.\tests' -CodeCoverage '.\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psm1'
 ```
+
+## Building and Deploying
+
+The Deploy.ps1 script may be used to prepare an environment for a deployment. It will execute the Build.ps1 script to create output for a deployment.
