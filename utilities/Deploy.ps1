@@ -40,16 +40,20 @@
 
     .PARAMETER Lock
     This is a switch that can be used to ensure that restoration of packages is performed in a locked mode.
+
+    .PARAMETER Test
+    This is a switch that can be used to specify whether testing should be performed.
 #>
 [CmdletBinding()]
 param(
     [switch]$Clean,
-    [switch]$Lock
+    [switch]$Lock,
+    [switch]$Test
 )
 
 Set-StrictMode -Version Latest
 
-. (Join-Path -Path $PSScriptRoot -ChildPath '.\Build.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock
+. (Join-Path -Path $PSScriptRoot -ChildPath '.\Build.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock -Test:$Test
 
 if (!(Get-PackageProvider | Where-Object { $_.Name -eq 'NuGet' })) {
     Install-PackageProvider -Name 'NuGet' -Force | Out-Null

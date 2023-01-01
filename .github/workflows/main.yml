@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Build and publish
+        env:
+          NUGET_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
+          BUILD_VERSION: '0.1.0.0'
+        shell: pwsh
+        run: | 
+          ./utilities/Deploy.ps1 -Clean -Lock

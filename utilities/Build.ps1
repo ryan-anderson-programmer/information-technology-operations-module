@@ -40,11 +40,15 @@
 
     .PARAMETER Lock
     This is a switch that can be used to ensure that restoration of packages is performed in a locked mode.
+
+    .PARAMETER Test
+    This is a switch that can be used to specify whether testing should be performed.
 #>
 [CmdletBinding()]
 param(
     [switch]$Clean,
-    [switch]$Lock
+    [switch]$Lock,
+    [switch]$Test
 )
 
 Set-StrictMode -Version Latest
@@ -55,14 +59,16 @@ if ($Clean -and (Test-Path $binPath)) {
     Remove-Item $binPath -Recurse -Force
 }
 
-try {
-    . (Join-Path -Path $PSScriptRoot -ChildPath '..\tests\setup\SetUpTestEnvironment.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock
-}
-catch {
-    Write-Warning $_.Exception
-    Write-Warning -Message 'Testing cannot proceed because issues were encountered during the setup process.'
+if ($Test) {
+    try {
+        . (Join-Path -Path $PSScriptRoot -ChildPath '..\tests\setup\SetUpTestEnvironment.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock
+    }
+    catch {
+        Write-Warning $_.Exception
+        Write-Warning -Message 'Testing cannot proceed because issues were encountered during the setup process.'
 
-    exit
+        exit
+    }
 }
 
 if (Get-Module -Name InformationTechnologyOperationsModule) {
@@ -94,4 +100,6 @@ Copy-DeploymentContent -Content $deploymentContent
 
 Import-Module (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psd1') -Force
 
-Invoke-Pester (Join-Path $PSScriptRoot '..\tests') -CodeCoverage (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psm1')
+if ($Test) {
+    Invoke-Pester (Join-Path $PSScriptRoot '..\tests') -CodeCoverage (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psm1')
+}
