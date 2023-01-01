@@ -105,4 +105,4 @@ Invoke-Pester '.\tests' -CodeCoverage '.\informationtechnologyoperationsmodule\I
 
 ## Building and Deploying
 
-The Deploy.ps1 script may be used to prepare an environment for a deployment. It will execute the Build.ps1 script to create output for a deployment.
+The Deploy.ps1 script may be used to prepare an environment for a deployment. It will execute the Build.ps1 script to create output for a deployment. Please, note that a manifest must be created manually. The CreateManifest.ps1 script is provided as a utility for conveniently creating a manifest.
