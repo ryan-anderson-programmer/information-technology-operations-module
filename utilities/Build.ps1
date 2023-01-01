@@ -49,6 +49,12 @@ param(
 
 Set-StrictMode -Version Latest
 
+$binPath = (Join-Path $PSScriptRoot '..\bin')
+
+if ($Clean -and (Test-Path $binPath)) {
+    Remove-Item $binPath -Recurse -Force
+}
+
 try {
     . (Join-Path -Path $PSScriptRoot -ChildPath '..\tests\setup\SetUpTestEnvironment.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock
 }
@@ -62,6 +68,29 @@ catch {
 if (Get-Module -Name InformationTechnologyOperationsModule) {
     Remove-Module -Name InformationTechnologyOperationsModule -Force # Remove any extra modules from the current session.
 }
+
+function Copy-DeploymentContent ($Content) {
+    foreach ($item in $Content) {
+        $source, $destination = $item
+
+        $null = New-Item -Force $destination -ItemType Directory
+
+        Get-ChildItem $source -File | Copy-Item -Destination $destination
+    }
+}
+
+$null = New-Item $binPath -ItemType Directory -Force
+
+$sourcePath = (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule')
+
+$deploymentContent = @(
+    , ((Join-Path $PSScriptRoot '..\LICENSE'), $binPath)
+    , ((Join-Path $PSScriptRoot '..\README.md'), $binPath)
+    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psm1'), $binPath)
+    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psd1'), $binPath)
+)
+
+Copy-DeploymentContent -Content $deploymentContent
 
 Import-Module (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psd1') -Force
 
