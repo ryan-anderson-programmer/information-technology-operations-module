@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     permissions:
       packages: write
       contents: read
@@ -20,5 +20,7 @@ jobs:
           NUGET_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
           BUILD_VERSION: '0.1.0.0'
         shell: pwsh
-        run: | 
+        run: |
+          Set-PSRepository -Name 'PSGallery' -InstallationPolicy 'Trusted'
+          Install-Module -Name 'Pester' -RequiredVersion '4.10.1' -Confirm:$false -Force
           ./utilities/Deploy.ps1 -Clean -Lock
