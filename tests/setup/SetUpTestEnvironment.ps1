@@ -40,11 +40,15 @@
 
     .PARAMETER Lock
     This is a switch that can be used to ensure that restoration of packages will be performed in a locked mode.
+
+    .PARAMETER InstallTestDependencies
+    This is a switch that can be used to ensure that dependencies for testing are installed.
 #>
 [CmdletBinding()]
 param(
     [switch]$Clean,
-    [switch]$Lock
+    [switch]$Lock,
+    [switch]$InstallTestDependencies
 )
 
 Set-StrictMode -Version Latest
@@ -53,13 +57,21 @@ try {
     $pesterModules = @(Get-Module -Name 'Pester' -ListAvailable)
 
     if (($null -eq $pesterModules) -or ($pesterModules.Length -eq 0)) {
-        throw 'No Pester modules could be found.'
+        if (-not $InstallTestDependencies) {
+            throw 'No Pester modules could be found.'
+        }
+
+        Install-Module -Name 'Pester' -RequiredVersion '4.10.1' -Confirm:$false -Force -SkipPublisherCheck # Install the most recent dependency that is supported.
     }
 
     $version = $pesterModules[0].Version
 
     if ($version -lt ([Version] '3.4.4') -or $version -gt ([Version] '4.10.1')) {
-        throw 'The most recent version of Pester that is installed is not supported. Only versions 3.4.4-4.10.1 are supported.'
+        if (-not $InstallTestDependencies) {
+            throw 'The most recent version of Pester that is installed is not supported. Only versions 3.4.4-4.10.1 are supported.'
+        }
+
+        Install-Module -Name 'Pester' -RequiredVersion '4.10.1' -Confirm:$false -Force -SkipPublisherCheck # Install the most recent dependency that is supported.
     }
 }
 catch {
