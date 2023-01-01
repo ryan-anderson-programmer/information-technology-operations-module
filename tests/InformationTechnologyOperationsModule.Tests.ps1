@@ -16,15 +16,15 @@
 #                                                                                #
 ##################################################################################
 
-#########################################################################################################################
-#                                                                                                                       #
-#    InformationTechnologyOperationsModule v0.1.0 Start-InformationTechnologyOperationVirtualMachine Unit Test Suite    #
-#                                                                                                                       #
-#    By Ryan E. Anderson                                                                                                #
-#                                                                                                                       #
-#    Copyright (C) 2022 Ryan E. Anderson                                                                                #
-#                                                                                                                       #
-#########################################################################################################################
+######################################################################
+#                                                                    #
+#    InformationTechnologyOperationsModule v0.1.0 Unit Test Suite    #
+#                                                                    #
+#    By Ryan E. Anderson                                             #
+#                                                                    #
+#    Copyright (C) 2022 Ryan E. Anderson                             #
+#                                                                    #
+######################################################################
 
 InModuleScope 'InformationTechnologyOperationsModule' {
     Describe 'Invoke-ShouldContinue' {

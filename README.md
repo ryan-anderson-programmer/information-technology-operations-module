@@ -97,8 +97,12 @@ A Windows batch script (Start-Information-Technology-Operations-Virtual-Machine.
 
 ### Pester
 
-Pester can be used to test this module to obtain information about code coverage. A suite of unit tests has been created to examine different contexts or scenarios and attain 100% coverage of the code. Dependencies for testing can be built using either Build.ps1 or SetUpTestEnvironment.ps1. Below is a command for analyzing code coverage with Pester.
+Pester can be used to test this module to obtain information about code coverage. A suite of unit tests has been created to examine different contexts or scenarios and attain optimal coverage of the code. Dependencies for testing can be built using either Build.ps1 or SetUpTestEnvironment.ps1. Below is a command for analyzing code coverage with Pester.
 
 ```powershell
 Invoke-Pester '.\tests' -CodeCoverage '.\informationtechnologyoperationsmodule\InformationTechnologyOperationsModule.psm1'
 ```
+
+## Building and Deploying
+
+The Deploy.ps1 script may be used to prepare an environment for a deployment. It will execute the Build.ps1 script to create output for a deployment. Please, note that a manifest must be created manually. The CreateManifest.ps1 script is provided as a utility for conveniently creating a manifest.
