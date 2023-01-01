@@ -53,8 +53,6 @@ param(
 
 Set-StrictMode -Version Latest
 
-. (Join-Path -Path $PSScriptRoot -ChildPath '.\Build.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock -Test:$Test
-
 if (!(Get-PackageProvider | Where-Object { $_.Name -eq 'NuGet' })) {
     Install-PackageProvider -Name 'NuGet' -Force | Out-Null
 }
@@ -64,3 +62,5 @@ Import-PackageProvider -Name 'NuGet' -Force | Out-Null
 if ((Get-PSRepository -Name 'PSGallery').InstallationPolicy -ne 'Trusted') {
     Set-PSRepository -Name 'PSGallery' -InstallationPolicy 'Trusted'
 }
+
+. (Join-Path -Path $PSScriptRoot -ChildPath '.\Build.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock -Test:$Test

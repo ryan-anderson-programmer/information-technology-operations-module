@@ -61,7 +61,7 @@ if ($Clean -and (Test-Path $binPath)) {
 
 if ($Test) {
     try {
-        . (Join-Path -Path $PSScriptRoot -ChildPath '..\tests\setup\SetUpTestEnvironment.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock
+        . (Join-Path -Path $PSScriptRoot -ChildPath '..\tests\setup\SetUpTestEnvironment.ps1' -ErrorAction Stop) -Clean:$Clean -Lock:$Lock -InstallTestDependencies
     }
     catch {
         Write-Warning $_.Exception
