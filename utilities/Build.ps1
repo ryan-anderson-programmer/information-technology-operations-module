@@ -53,10 +53,10 @@ param(
 
 Set-StrictMode -Version Latest
 
-$binPath = (Join-Path $PSScriptRoot '..\bin')
+$deploymentOutputPath = (Join-Path $PSScriptRoot '..\deployment\informationtechnologyoperationsmodule')
 
-if ($Clean -and (Test-Path $binPath)) {
-    Remove-Item $binPath -Recurse -Force
+if ($Clean -and (Test-Path $deploymentOutputPath)) {
+    Remove-Item $deploymentOutputPath -Recurse -Force
 }
 
 if ($Test) {
@@ -85,15 +85,15 @@ function Copy-DeploymentContent ($Content) {
     }
 }
 
-$null = New-Item $binPath -ItemType Directory -Force
+$null = New-Item $deploymentOutputPath -ItemType Directory -Force
 
 $sourcePath = (Join-Path $PSScriptRoot '..\informationtechnologyoperationsmodule')
 
 $deploymentContent = @(
-    , ((Join-Path $PSScriptRoot '..\LICENSE'), $binPath)
-    , ((Join-Path $PSScriptRoot '..\README.md'), $binPath)
-    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psm1'), $binPath)
-    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psd1'), $binPath)
+    , ((Join-Path $PSScriptRoot '..\LICENSE'), $deploymentOutputPath)
+    , ((Join-Path $PSScriptRoot '..\README.md'), $deploymentOutputPath)
+    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psm1'), $deploymentOutputPath)
+    , ((Join-Path $sourcePath 'InformationTechnologyOperationsModule.psd1'), $deploymentOutputPath)
 )
 
 Copy-DeploymentContent -Content $deploymentContent
