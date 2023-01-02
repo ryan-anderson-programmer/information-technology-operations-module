@@ -1,6 +1,6 @@
 ##################################################################################
 #                                                                                #
-#    Copyright 2022 Ryan E. Anderson                                             #
+#    Copyright 2023 Ryan E. Anderson                                             #
 #                                                                                #
 #    Licensed under the Apache License, Version 2.0 (the "License");             #
 #    you may not use this file except in compliance with the License.            #
@@ -22,7 +22,7 @@
 #                                                                    #
 #    By Ryan E. Anderson                                             #
 #                                                                    #
-#    Copyright (C) 2022 Ryan E. Anderson                             #
+#    Copyright (C) 2023 Ryan E. Anderson                             #
 #                                                                    #
 ######################################################################
 
@@ -102,7 +102,7 @@ $parameters = @{
     RootModule        = 'InformationTechnologyOperationsModule.psm1'
     Description       = 'This module contains utilities that can be used to simplify the execution of tasks that are part of IT operations.'
     Author            = 'Ryan E. Anderson'
-    Copyright         = 'Copyright (C) 2022 Ryan E. Anderson'
+    Copyright         = 'Copyright (C) 2023 Ryan E. Anderson'
     Tags              = @('InformationTechnology', 'InformationTechnologyOperations', 'system', 'administration', 'it', 'system-administration', 'information-technology', 'operation', 'information', 'technology', 'DevOps', 'hypervisor')
     LicenseUri        = 'https://github.com/ryan-anderson-programmer/information-technology-operations-module/blob/main/LICENSE'
     ProjectUri        = 'https://github.com/ryan-anderson-programmer/information-technology-operations-module'
