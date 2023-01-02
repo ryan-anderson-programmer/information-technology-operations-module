@@ -21,7 +21,6 @@ jobs:
           BUILD_VERSION: 0.1.0.${{ github.run_number }}
         shell: pwsh
         run: |
-          Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
-          ./utilities/Deploy.ps1 -Clean -Lock -Test
+          ./utilities/Deploy.ps1 -Clean -Lock
           Write-Information -MessageData ([string]::Format("The output for build '{0}' was generated.", $env:BUILD_VERSION)) -InformationAction Continue
           Get-ChildItem -Path ./bin -Recurse
