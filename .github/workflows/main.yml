@@ -21,6 +21,7 @@ jobs:
           BUILD_VERSION: 0.1.0.${{ github.run_number }}
         shell: pwsh
         run: |
-          ./utilities/Deploy.ps1 -Clean -Lock
+          Import-Module Hyper-V
+          ./utilities/Deploy.ps1 -Clean -Lock -Test
           Write-Information -MessageData ([string]::Format("The output for build '{0}' was generated.", $env:BUILD_VERSION)) -InformationAction Continue
           Get-ChildItem -Path ./bin -Recurse
