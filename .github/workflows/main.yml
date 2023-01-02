@@ -23,5 +23,5 @@ jobs:
         run: |
           ./utilities/Deploy.ps1 -Clean -Lock
           Write-Information -MessageData ([string]::Format("The output for build '{0}' was generated. Below is the content for the current deployment.", $env:BUILD_VERSION)) -InformationAction Continue
-          Get-ChildItem -Path './bin' -Recurse
-          Publish-Module -Path './bin' -NuGetApiKey $env:NUGET_KEY -Verbose
+          Get-ChildItem -Path './deployment/informationtechnologyoperationsmodule' -Recurse
+          Publish-Module -Path './deployment/informationtechnologyoperationsmodule' -NuGetApiKey $env:NUGET_KEY -Verbose
