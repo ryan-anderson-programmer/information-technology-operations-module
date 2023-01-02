@@ -18,8 +18,9 @@ jobs:
       - name: Build and publish
         env:
           NUGET_KEY: ${{ secrets.POWERSHELL_GALLERY_API_KEY }}
-          BUILD_VERSION: '0.1.0.0'
+          BUILD_VERSION: '0.1.0.$GITHUB_RUN_NUMBER'
         shell: pwsh
         run: |
           ./utilities/Deploy.ps1 -Clean -Lock
+          Write-Information -MessageData ([string]::Format("The output for build '{0}' was generated.", $env:BUILD_VERSION)) -InformationAction Continue
           Get-ChildItem -Path ./bin -Recurse
